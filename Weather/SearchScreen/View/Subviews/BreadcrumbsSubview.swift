@@ -22,7 +22,7 @@ struct BreadcrumbsSubview: View {
     
     private func getHStack(for cities: [City]) -> some View {
         var citiesGrid: [[City]] = [[]]
-        var citiesArray = cities//.map({ $0.name })
+        var citiesArray = cities
         var hStackLength: CGFloat = 0
         var index = 0
         for city in citiesArray.sorted { $0.name.count < $1.name.count }.reversed() {
@@ -53,7 +53,6 @@ struct BreadcrumbsSubview: View {
             }
         }
     }
-    
     
     private func item(for text: String) -> some View {
         Text(text)

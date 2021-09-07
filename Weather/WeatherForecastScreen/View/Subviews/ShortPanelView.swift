@@ -13,9 +13,9 @@ struct ShortPanelView: View {
     
     var body: some View {
         VStack(spacing: MagicSpacer.x2){
-            IconStruct.getImage(with: WeatherImage.wind.rawValue, size: 15, color: .white).frame(alignment: .center)
-            IconStruct.getImage(with: WeatherImage.compass.rawValue, size: 15, color: .white).frame(alignment: .center)
-            IconStruct.getImage(with: WeatherImage.drop.rawValue, size: 15, color: .white).frame(alignment: .center)
+            IconView(name: AppImage.wind).frame(alignment: .center)
+            IconView(name: AppImage.compass).frame(alignment: .center)
+            IconView(name: AppImage.drop).frame(alignment: .center)
         }
         VStack(alignment: .leading, spacing: MagicSpacer.x3){
             Text("\(cityForecast.windSpeed) \(Localization.kmh.localized), \(cityForecast.windDirection.description)").modifier(SecondaryWhiteText())

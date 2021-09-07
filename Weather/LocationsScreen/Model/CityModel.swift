@@ -12,7 +12,6 @@ struct CityModel: Identifiable, Hashable {
         return lhs.coord.lat == rhs.coord.lat && lhs.coord.lon == rhs.coord.lon
     }
     
-    
     let id = UUID()
     let cityName: String
     let cityRegion: String

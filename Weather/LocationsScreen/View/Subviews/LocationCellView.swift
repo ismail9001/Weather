@@ -20,18 +20,18 @@ struct LocationCellView: View {
                 VStack(alignment: .leading){
                     HStack{
                         Text(cityModel.cityName).modifier(DateMainText())
-                        IconStruct.getImage(with: AppImage.mapPin.rawValue, color: .blue)
+                        IconView(name: AppImage.mapPin, color: .blue)
                     }
                     Text(cityModel.cityRegion).modifier(LocationDescription())
                         .padding(.top, MagicSpacer.x05)
                 }
                 Spacer()
                 if !isEditing {
-                    IconStruct.getImage(with: WeatherImage.cloud.rawValue, size: 24.0, color: .gray)
+                    IconView(name: AppImage.cloud, fontSize: 24, color: .gray)
                     Text(cityModel.temperature).modifier(TemperatureLocationDark())
                 } else {
                     Button(action: onDetail) {
-                        IconStruct.getImage(with: AppImage.multiply.rawValue, size: 17.0, color: .red)
+                        IconView(name: AppImage.multiply, fontSize: 17, color: .red)
                     }
                     .modifier(DeleteButton())
                 }

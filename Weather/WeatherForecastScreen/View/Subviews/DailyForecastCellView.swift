@@ -25,7 +25,7 @@ struct DailyForecastCellView: View {
             Spacer()
             LazyVGrid(columns: columns, content: {
                 Section() {
-                    IconStruct.getImage(with: forecast.weather, size: 17, color: .blue)
+                    IconView(name: AppImage.withLabel(forecast.weather), fontSize: 17, color: .blue)
                     Text(forecast.dayTemperature)
                         .modifier(TemperatureDark())
                     Text(forecast.nightTemperature)

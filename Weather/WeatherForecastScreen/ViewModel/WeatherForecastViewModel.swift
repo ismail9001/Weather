@@ -14,7 +14,7 @@ class WeatherForecastViewModel: ObservableObject {
     
     @Published var dailyForecasts: [DailyForecast] = Array()
     @Published var cityForecast: CityForecast
-    @Published var selectedCity: String = "Kazan"
+    @Published var selectedCity: String = "Kazan" //constructor
     
     init(networkService: NetworkService) {
         self.networkService = networkService
@@ -42,7 +42,7 @@ class WeatherForecastViewModel: ObservableObject {
             guard let self = self else { return }
             self.dailyForecasts = []
             for i in 0...15 {
-                self.dailyForecasts.append(DailyForecast(response: DailyListForecastResponse(dt: 1630238673 + (i * 60 * 60 * 24), temperature: TempResponse(day: Double.random(in: 1...20), night: Double.random(in: 1...20)), weather: [WeatherInfoResponse(main: WeatherImage.allCases.randomElement()?.rawValue ?? WeatherImage.cloud.rawValue)])))
+                self.dailyForecasts.append(DailyForecast(response: DailyListForecastResponse(dt: 1630238673 + (i * 60 * 60 * 24), temperature: TempResponse(day: Double.random(in: 1...20), night: Double.random(in: 1...20)), weather: [WeatherInfoResponse(main: AppImage.allCases.randomElement()?.rawValue ?? AppImage.cloud.rawValue)])))
             }
         }
         

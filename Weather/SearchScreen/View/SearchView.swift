@@ -114,12 +114,12 @@ struct SearchView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                                     Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                        IconStruct.getImage(with: AppImage.leftChevron.rawValue, color: .black)
+                                        IconView(name: AppImage.leftChevron, color: .black)
                                         Text(Localization.locations.localized)
                                             .fontWeight(.regular)
                                     }, trailing:
                                     Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                        IconStruct.getImage(with: AppImage.plus.rawValue, color: .black)
+                                        IconView(name: AppImage.plus, color: .black)
                                             .padding(.leading, MagicSpacer.x4)
                                     }
             )
@@ -160,7 +160,7 @@ struct SearchView: View {
                 .navigationBarItems(leading:
                                         HStack {
                                             Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                                IconStruct.getImage(with: AppImage.leftChevron.rawValue, color: .black)
+                                                IconView(name: AppImage.leftChevron, color: .black)
                                                     .padding(.leading, leadingNavPadding)
                                             }
                                             SearchBar(location: $location, isEditing: $isEditing)

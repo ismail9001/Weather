@@ -17,21 +17,19 @@ struct SearchBar: View {
     var body: some View {
         TextField(Localization.enterLocation.localized, text: $location)
             .padding(7)
-            .onReceive(Just(location)) { location in
+            .onReceive(Just(location)) { location in //убрать JUST  searchbar uikit
                 isEditing = !location.isEmpty
             }
             .overlay(
                 HStack {
+                    Spacer()
                     if isEditing {
-                        Spacer()
                         Button(action: {
                             self.location = ""
                         }) {
-                            IconStruct.getImage(with: AppImage.multiply.rawValue, size: 17, color: .black)
+                            IconView(name: AppImage.multiply, fontSize: 17, color: .black)
                         }
-                    } else {
-                        
-                    }
+                    } //opacity
                 }
             )
             .padding(.trailing, MagicSpacer.x4)

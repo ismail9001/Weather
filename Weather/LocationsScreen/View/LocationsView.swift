@@ -32,20 +32,20 @@ struct LocationsView: View {
         .modifier(ClearNavigationBar())
         .navigationTitle(Localization.locations.localized)
         .navigationBarItems(leading:
-                                Button(action: {self.presentationMode.wrappedValue.dismiss() }) { IconStruct.getImage(with: AppImage.leftChevron.rawValue, color: .black)},
+                                Button(action: {self.presentationMode.wrappedValue.dismiss() }) { IconView(name: AppImage.leftChevron, color: .black)},
                             trailing: Button(action: {
                                 isEditing.toggle()
                             }) { if !isEditing {
-                                IconStruct.getImage(with: AppImage.squareAndPencil.rawValue, color: .black)
+                                IconView(name: AppImage.squareAndPencil, color: .black)
                             } else {
-                                IconStruct.getImage(with: AppImage.checkMark.rawValue, color: .black)
+                                IconView(name: AppImage.checkMark, color: .black)
                             }
                             })
         .onAppear(perform: viewModel.startFetchingData)
         HStack {
             NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCity: $selectedCity))) {
                 HStack {
-                    IconStruct.getImage(with: AppImage.plusCircle.rawValue, size: 17, color: .blue)
+                    IconView(name: AppImage.plusCircle, fontSize: 17, color: .blue)
                     Text(Localization.addLocation.localized).modifier(LinkText())
                 }
                 .padding(.leading, MagicSpacer.x4)
