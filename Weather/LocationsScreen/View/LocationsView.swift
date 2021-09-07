@@ -13,7 +13,6 @@ struct LocationsView: View {
     @StateObject var viewModel: LocationsViewModel
     @State var isEditing = false
     @State var selection: Int? = nil
-    @Binding var selectedCity: String
     
     var body: some View {
         ScrollView {
@@ -23,7 +22,7 @@ struct LocationsView: View {
                         viewModel.deleteLocation(location: city)
                     }
                     .onTapGesture {
-                        selectedCity = city.cityName
+                        viewModel.selectCity(with: city.cityName) // Nikite
                         NavigationCoordinator.popToRootView()
                     }
                 }
@@ -43,7 +42,7 @@ struct LocationsView: View {
                             })
         .onAppear(perform: viewModel.startFetchingData)
         HStack {
-            NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCity: $selectedCity))) {
+            NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCity: $viewModel.selectedCity))) {
                 HStack {
                     IconView(name: AppImage.plusCircle, fontSize: 17, color: .blue)
                     Text(Localization.addLocation.localized).modifier(LinkText())
@@ -58,6 +57,6 @@ struct LocationsView: View {
 struct LocationsView_Previews: PreviewProvider {
     static var previews: some View {
         let networkService = DIContainer.shared.networkService
-        LocationsView(viewModel: LocationsViewModel(networkService: networkService), selectedCity: .constant("Moscow"))
+        LocationsView(viewModel: LocationsViewModel(networkService: networkService, selectedCity: .constant("Moscow")))
     }
 }

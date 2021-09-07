@@ -10,8 +10,8 @@ import SwiftUI
 struct SearchViewBuilder {
     
     static func view(selectedCity: Binding<String>) -> some View {
-        let viewModel = SearchViewModel()
-        return SearchView(selectedCityName: selectedCity)
+        let viewModel = SearchViewModel(selectedCity: selectedCity)
+        return SearchView(viewModel: viewModel)
     }
 }
 

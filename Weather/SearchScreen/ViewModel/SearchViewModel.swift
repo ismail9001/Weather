@@ -6,7 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 class SearchViewModel: ObservableObject {
-
+    
+    @Binding var selectedCity: String
+    
+    init(selectedCity: Binding<String>) {
+        self._selectedCity = selectedCity
+    }
 }

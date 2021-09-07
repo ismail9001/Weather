@@ -10,8 +10,8 @@ import SwiftUI
 struct LocationsViewBuilder {
     
     static func view(selectedCity: Binding<String>) -> some View {
-        let viewModel = LocationsViewModel(networkService: DIContainer.shared.networkService)
-        return LocationsView(viewModel: viewModel, selectedCity: selectedCity) //TODO параметры во вью модель
+        let viewModel = LocationsViewModel(networkService: DIContainer.shared.networkService, selectedCity: selectedCity)
+        return LocationsView(viewModel: viewModel)
     }
 }
 

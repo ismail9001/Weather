@@ -11,12 +11,7 @@ import Combine
 struct SearchView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @Binding var selectedCityName: String
-    {
-        mutating didSet {
-            selectedCity = getCity(for: selectedCityName)
-        }
-    }
+    @StateObject var viewModel: SearchViewModel
     @State var selectedCity: City = City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391))
     @State var location: String = ""
     @State private var isEditing = false
@@ -32,17 +27,6 @@ struct SearchView: View {
                                         City(name: "Kaliningrad", coord: Coordinate(lon: 20.51095, lat: 54.70649)),
                                         City(name: "Yekaterinburg", coord: Coordinate(lon: 60.6122, lat: 56.8519)),
                                         City(name: "Ufa", coord: Coordinate(lon: 55.96779, lat: 54.74306))]
-//    @State var popularCities: [String:(lon: Double, lat: Double)] = ["Moscow": (lon: 37.618423, lat: 55.751244),
-//                                                                     "Kazan": (lon: 49.108891, lat: 55.796391),
-//                                                                     "Samara": (lon: 50.221245, lat: 53.241505),
-//                                                                     "Rostov-na-Donu": (lon: 39.715, lat: 47.2332),
-//                                                                     "Kiev": (lon: 30.5238, lat: 50.45466),
-//                                                                     "Saint Petersburg": (lon: 30.3350986, lat: 59.9342802),
-//                                                                     "Nizhniy Novgorod": (lon: 44.0092, lat: 56.3299),
-//                                                                     "Omsk": (lon: 73.36859, lat: 54.99244),
-//                                                                     "Kaliningrad": (lon: 20.51095, lat: 54.70649),
-//                                                                     "Yekaterinburg": (lon: 60.6122, lat: 56.8519),
-//                                                                     "Ufa": (lon: 55.96779, lat: 54.74306)]
     
     @State var locationManager = LocationManager()
     private let leadingNavPadding: CGFloat = 20
@@ -104,7 +88,7 @@ struct SearchView: View {
                 if isEditing {
                     SearchResultTable(cities: $popularCities,
                                       location: $location,
-                                      selectedCity: $selectedCityName,
+                                      selectedCity: $viewModel.selectedCity,
                                       isEditing: $isEditing,
                                       isMapSearch: true)
                 } else {
@@ -134,7 +118,7 @@ struct SearchView: View {
                                 Text(Localization.popularCities.localized).modifier(HeadText())
                                 Spacer()
                             }
-                            BreadcrumbsSubview(cities: $popularCities, selectedCity: $selectedCityName)
+                            BreadcrumbsSubview(cities: $popularCities, selectedCity: $viewModel.selectedCity)
                             Divider()
                                 .padding(.top, MagicSpacer.x4)
                             HStack {
@@ -151,7 +135,7 @@ struct SearchView: View {
                     } else {
                         SearchResultTable(cities: $popularCities,
                                           location: $location,
-                                          selectedCity: $selectedCityName,
+                                          selectedCity: $viewModel.selectedCity,
                                           isEditing: $isEditing,
                                           isMapSearch: false)
                     }
@@ -174,6 +158,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(selectedCityName: .constant("Moscow"))
+        SearchView(viewModel: SearchViewModel(selectedCity: .constant("Moscow")))
     }
 }

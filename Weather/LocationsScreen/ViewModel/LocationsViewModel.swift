@@ -6,21 +6,29 @@
 //
 
 import Foundation
+import SwiftUI
 
 class LocationsViewModel: ObservableObject {
     
     let networkService: NetworkService
     var timer: Timer?
     
-    @Published var citiesForecast: [CityModel] = []
+    @Binding var selectedCity: String
+    @Published var citiesForecast: [CityModel]
     
-    init(networkService: NetworkService) {
+    init(networkService: NetworkService, selectedCity: Binding<String>) {
         self.networkService = networkService
+        self._selectedCity = selectedCity
+        self.citiesForecast = []
     }
 
     func startFetchingData() {
         getCitiesData()
         setTimer()
+    }
+    
+    func selectCity(with city: String) {
+        selectedCity = city
     }
     
     func deleteLocation(location: CityModel) {
