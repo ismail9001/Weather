@@ -1,0 +1,44 @@
+/* 
+  Localizable.strings
+  Weather
+
+  Created by Iskander Nizamov on 26.08.2021.
+  
+*/
+
+"NOW" = "Now";
+"LOCATIONS" = "Locations";
+"HUMIDITY" = "Humidity";
+"KMH" = "km/h";
+"HPA" = "hPA";
+"ADD_LOCATION" = "Add location";
+"POPULAR_CITIES" = "Popular cities";
+"SHOW_MAP" = "Show map";
+"ENTER_LOCATION" = "Enter location";
+
+//Wind Direction
+"N" = "North";
+"NW" = "Northwest";
+"NE" = "Northeast";
+"E" = "East";
+"W" = "West";
+"S" = "South";
+"SE" = "Southwest";
+"SW" = "Southeast";
+
+//Weather
+"CLOUDS" = "Cloud";
+"RAIN" = "Rain";
+"THUNDERSTORM" = "Thunderstorm";
+"DRIZZLE" = "Drizzle";
+"SNOW" = "Snow";
+"MIST" = "Mist";
+"SMOKE" = "Smoke";
+"HAZE" = "Haze";
+"DUST" = "Dust";
+"FOG" = "Fog";
+"SAND" = "Sand";
+"ASH" = "Ash";
+"SQUALL" = "Squall";
+"TORNADO" = "Tornado";
+"CLEAR" = "Clear";
