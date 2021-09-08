@@ -92,7 +92,8 @@ struct SearchView: View {
                                       isEditing: $isEditing,
                                       isMapSearch: true)
                 } else {
-                    GoogleMapsView(city: $selectedCity).edgesIgnoringSafeArea(.all)
+                    MapView()
+                    //GoogleMapsView(city: $selectedCity).edgesIgnoringSafeArea(.all)
                 }
             }
             .navigationBarBackButtonHidden(true)

@@ -12,13 +12,16 @@ class WeatherForecastViewModel: ObservableObject {
     let networkService: NetworkService
     var timer: Timer?
     
-    @Published var dailyForecasts: [DailyForecast] = Array()
+    @Published var dailyForecasts: [DailyForecast]
     @Published var cityForecast: CityForecast
-    @Published var selectedCity: String = "Kazan" //constructor
+    @Published var selectedCity: String
+    @Published var isLoading: Bool = false
     
     init(networkService: NetworkService) {
         self.networkService = networkService
         self.cityForecast = CityForecast.getEmptyForecast()
+        self.dailyForecasts = Array()
+        self.selectedCity = "Kazan"
     }
     
     func startFetchingData() {
@@ -35,6 +38,7 @@ class WeatherForecastViewModel: ObservableObject {
     }
     
     private func getData() {
+        isLoading = true
         networkService.getDailyForecast() { [weak self] forecasts in
             //            for dayForecast in forecasts.list {
             //                self?.dailyForecasts.append(DailyForecast(response: dayForecast))
@@ -49,6 +53,10 @@ class WeatherForecastViewModel: ObservableObject {
         networkService.getWeatherDataByCity(city: selectedCity) { [weak self] cityResponse in
             guard let self = self else { return }
             self.cityForecast = CityForecast.convertToCityForecast(response: cityResponse)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.isLoading = false
         }
     }
 }

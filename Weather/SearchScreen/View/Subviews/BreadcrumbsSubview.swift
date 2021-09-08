@@ -32,6 +32,9 @@ struct BreadcrumbsSubview: View {
             } else {
                 hStackLength = self.getCellLength(for: city.name)
                 index += 1
+                if isThirdRow(rowCount: index) {
+                    break
+                }
                 citiesGrid.append([])
             }
             citiesGrid[index].append(city)
@@ -52,6 +55,10 @@ struct BreadcrumbsSubview: View {
                 }
             }
         }
+    }
+    
+    private func isThirdRow(rowCount: Int) -> Bool {
+        rowCount > 1
     }
     
     private func item(for text: String) -> some View {

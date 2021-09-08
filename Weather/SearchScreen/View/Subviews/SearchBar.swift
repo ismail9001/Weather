@@ -29,7 +29,7 @@ struct SearchBar: View {
                         }) {
                             IconView(name: AppImage.multiply, fontSize: 17, color: .black)
                         }
-                    } //opacity
+                    } //TODO opacity
                 }
             )
             .padding(.trailing, MagicSpacer.x4)

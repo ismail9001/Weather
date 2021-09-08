@@ -11,8 +11,6 @@ struct WeatherForecastView: View {
     
     @StateObject var viewModel: WeatherForecastViewModel
     @State var isScrolled = true
-    @State var isActive : Bool = false
-    @State private var scale: CGFloat = 1
     
     var hourlyForecastSubviewHeight: CGFloat = 88
     
@@ -22,6 +20,9 @@ struct WeatherForecastView: View {
     var headerHeight: CGFloat = 240.0
     
     var body: some View {
+//        if viewModel.isLoading == true {
+//            ProgressView()
+//        } else {
         NavigationView {
             VStack {
                 ZStack {
@@ -58,6 +59,7 @@ struct WeatherForecastView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
+//        }
     }
 }
 
