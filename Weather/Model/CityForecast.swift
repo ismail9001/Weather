@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CityForecast {
-    var id: Int
+struct CityForecast: Identifiable, Hashable {
+    let id = UUID()
     var cityName: String
     var cityRegion: String
     var temperature: String
@@ -22,10 +22,9 @@ struct CityForecast {
     var humidity: Int
     var coord: Coordinates
     
-    static func convertToCityForecast(response: OneCallResponse) -> CityForecast {
+    static func convertFrom(response: OneCallResponse) -> CityForecast {
         
-        let forecast = CityForecast(id: response.cityId,
-                                    cityName: response.name,
+        let forecast = CityForecast(cityName: response.name,
                                     cityRegion: response.sys.country,
                                     temperature: Converter.getCelsium(temperature: response.main.temp),
                                     weather: "\(response.weather[0].main)",
@@ -41,8 +40,7 @@ struct CityForecast {
     }
     
     static func getEmptyForecast() -> CityForecast {
-        let forecast = CityForecast(id: 0,
-                                    cityName: "",
+        let forecast = CityForecast(cityName: "",
                                     cityRegion: "",
                                     temperature: "",
                                     weather: "",
@@ -59,6 +57,6 @@ struct CityForecast {
 }
 
 #if DEBUG
-let testCityForecast = CityForecast(id: 1, cityName: "Kiev", cityRegion: "Ukraine", temperature: "+17°", weather: "cloud", dayNightTemperature: "", description: "", feelsLikeTemp: "+15°", windSpeed: 5, windDirection: WindDirection.southEast, pressure: 1245, humidity: 85, coord: Coordinates(lon: 30.5238, lat: 50.45466))
+let testCityForecast = CityForecast(cityName: "Kiev", cityRegion: "Ukraine", temperature: "+17°", weather: "cloud", dayNightTemperature: "", description: "", feelsLikeTemp: "+15°", windSpeed: 5, windDirection: WindDirection.southEast, pressure: 1245, humidity: 85, coord: Coordinates(lon: 30.5238, lat: 50.45466))
 
 #endif

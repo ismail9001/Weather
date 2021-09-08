@@ -14,7 +14,7 @@ class LocationsViewModel: ObservableObject {
     var timer: Timer?
     
     @Binding var selectedCity: String
-    @Published var citiesForecast: [CityModel]
+    @Published var citiesForecast: [CityForecast]
     
     init(networkService: NetworkService, selectedCity: Binding<String>) {
         self.networkService = networkService
@@ -31,7 +31,7 @@ class LocationsViewModel: ObservableObject {
         selectedCity = city
     }
     
-    func deleteLocation(location: CityModel) {
+    func deleteLocation(location: CityForecast) {
         for (index, city) in citiesForecast.enumerated() {
             if location.id == city.id {
                 citiesForecast.remove(at: index)
@@ -54,7 +54,7 @@ class LocationsViewModel: ObservableObject {
         for cityName in Config.shared.cities {
             networkService.getWeatherDataByCity(city: cityName) { [weak self] city in
                 guard let self = self else { return }
-                self.citiesForecast.append(CityModel.convertFrom(response: city))
+                self.citiesForecast.append(CityForecast.convertFrom(response: city))
             }
         }
     }

@@ -22,7 +22,7 @@ struct LocationsView: View {
                         viewModel.deleteLocation(location: city)
                     }
                     .onTapGesture {
-                        viewModel.selectCity(with: city.cityName) // Nikite
+                        viewModel.selectCity(with: city.cityName) // Nikite показать решение
                         NavigationCoordinator.popToRootView()
                     }
                 }

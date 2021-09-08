@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationCellView: View {
     
-    var cityModel: CityModel
+    var cityModel: CityForecast
     @Binding var isEditing: Bool
     let onDetail: () -> Void
     

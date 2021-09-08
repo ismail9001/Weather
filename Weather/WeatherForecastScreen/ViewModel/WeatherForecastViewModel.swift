@@ -52,7 +52,7 @@ class WeatherForecastViewModel: ObservableObject {
         
         networkService.getWeatherDataByCity(city: selectedCity) { [weak self] cityResponse in
             guard let self = self else { return }
-            self.cityForecast = CityForecast.convertToCityForecast(response: cityResponse)
+            self.cityForecast = CityForecast.convertFrom(response: cityResponse)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
