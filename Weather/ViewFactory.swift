@@ -18,7 +18,7 @@ struct ViewFactory {
         
         case forecast,
              citiesList(selectedCity: Binding<String>),
-             search(selectedCity: Binding<String>)
+             search(selectedCityName: Binding<String>)
         
         var rowType: StringType {
             switch self {

@@ -15,6 +15,8 @@
 "POPULAR_CITIES" = "Popular cities";
 "SHOW_MAP" = "Show map";
 "ENTER_LOCATION" = "Enter location";
+"CANCEL" = "Cancel";
+"ADD" = "Add";
 
 //Wind Direction
 "N" = "North";

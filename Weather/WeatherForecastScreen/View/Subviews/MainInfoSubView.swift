@@ -40,8 +40,8 @@ struct MainInfoSubView: View {
     }
 }
 
-struct MainInfoSubView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainInfoSubView(cityForecast: .constant(testCityForecast), selectedCity: .constant("Moscow"))
-    }
-}
+//struct MainInfoSubView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainInfoSubView(cityForecast: .constant(testCityForecast), selectedCity: .constant(CityForecast.getEmptyForecast())
+//    }
+//}

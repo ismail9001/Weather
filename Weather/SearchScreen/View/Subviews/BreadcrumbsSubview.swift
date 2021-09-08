@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BreadcrumbsSubview: View {
     
-    @Binding var cities: [City]
+    var cities: [City]
     @Binding var selectedCity: String
     
     var body: some View {
@@ -77,6 +77,6 @@ struct BreadcrumbsSubview: View {
 
 struct BreadcrumbsSubview_Previews: PreviewProvider {
     static var previews: some View {
-        BreadcrumbsSubview(cities: .constant([City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391)), City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244))]), selectedCity: .constant("Moscow"))
+        BreadcrumbsSubview(cities: [City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391)), City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244))], selectedCity: .constant("Moscow"))
     }
 }

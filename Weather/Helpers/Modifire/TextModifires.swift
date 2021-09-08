@@ -78,7 +78,6 @@ struct TemperatureLocationDark: ViewModifier {
             .font(Font.system(size: 34, weight: .regular, design: .default))
             .foregroundColor(.black)
             .background(Color(.clear))
-            .padding(.leading, MagicSpacer.x4)
     }
 }
 

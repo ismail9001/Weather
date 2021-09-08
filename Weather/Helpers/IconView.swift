@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct IconView: View { //-> to IconView
+struct IconView: View {
     
     var name: AppImage
     var fontSize: CGFloat = 15

@@ -23,13 +23,13 @@ struct SearchBar: View {
             .overlay(
                 HStack {
                     Spacer()
-                    if isEditing {
                         Button(action: {
                             self.location = ""
                         }) {
                             IconView(name: AppImage.multiply, fontSize: 17, color: .black)
                         }
-                    } //TODO opacity
+                        .disabled(!isEditing)
+                        .opacity(isEditing ? 1 : 0)
                 }
             )
             .padding(.trailing, MagicSpacer.x4)

@@ -7,58 +7,34 @@
 
 import SwiftUI
 import Combine
+import MapKit
 
 struct SearchView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel: SearchViewModel
-    @State var selectedCity: City = City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391))
-    @State var location: String = ""
+    @State var searchLocation: String = ""
     @State private var isEditing = false
     @State private var mapChoosed = false
-    @State var popularCities: [City] = [City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244)),
-                                        City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391)),
-                                        City(name: "Samara", coord: Coordinate(lon: 50.221245, lat: 53.241505)),
-                                        City(name: "Rostov-na-Donu", coord: Coordinate(lon: 39.715, lat: 47.2332)),
-                                        City(name: "Kiev", coord: Coordinate(lon: 30.5238, lat: 50.45466)),
-                                        City(name: "Saint Petersburg", coord: Coordinate(lon: 30.3350986, lat: 59.9342802)),
-                                        City(name: "Nizhniy Novgorod", coord: Coordinate(lon: 44.0092, lat: 56.3299)),
-                                        City(name: "Omsk", coord: Coordinate(lon: 73.36859, lat: 54.99244)),
-                                        City(name: "Kaliningrad", coord: Coordinate(lon: 20.51095, lat: 54.70649)),
-                                        City(name: "Yekaterinburg", coord: Coordinate(lon: 60.6122, lat: 56.8519)),
-                                        City(name: "Ufa", coord: Coordinate(lon: 55.96779, lat: 54.74306))]
-    
-    @State var locationManager = LocationManager()
     private let leadingNavPadding: CGFloat = 20
-    
-    private func getCity(for cityName: String) -> City {
-        for city in popularCities {
-            if (cityName == city.name) {
-                return city
-            }
-        }
-        return City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244))
-    }
     
     var body: some View {
         if mapChoosed {
             VStack {
                 HStack() {
-                    TextField(Localization.enterLocation.localized, text: $location)
+                    TextField(Localization.enterLocation.localized, text: $searchLocation)
                         .padding(7)
                         .padding(.horizontal, 25)
                         .background(Color(.systemGray6))
                         .cornerRadius(8)
                         .overlay(
                             HStack {
-                                Image(systemName: AppImage.magnifyingglass.rawValue)
-                                    .foregroundColor(.gray)
+                                IconView(name: AppImage.magnifyingglass, color: .gray)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                     .padding(.leading, 8)
-                                
                                 if isEditing {
                                     Button(action: {
-                                        self.location = ""
+                                        self.searchLocation = ""
                                         self.isEditing = false
                                     }) {
                                         Image(systemName: AppImage.multipleCircleFill.rawValue)
@@ -76,24 +52,30 @@ struct SearchView: View {
                     if isEditing {
                         Button(action: {
                             self.isEditing = false
-                            self.location = ""
+                            self.searchLocation = ""
                         }) { //TODO анимация правой стороы TF
-                            Text("Cancel")
+                            Text(Localization.cancel.localized)
                         }
                         .padding(.trailing, 10)
                         .transition(.move(edge: .trailing))
                         .animation(.default)
                     }
                 }
-                if isEditing {
-                    SearchResultTable(cities: $popularCities,
-                                      location: $location,
-                                      selectedCity: $viewModel.selectedCity,
+                ZStack {
+                    SearchResultTable(cities: viewModel.popularCities,
+                                      searchLocation: $searchLocation,
+                                      selectedCity: $viewModel.selectedCityName,
                                       isEditing: $isEditing,
-                                      isMapSearch: true)
-                } else {
-                    MapView()
-                    //GoogleMapsView(city: $selectedCity).edgesIgnoringSafeArea(.all)
+                                      bottomSheetShown: $viewModel.bottomSheetShown,
+                                      isMapSearch: true,
+                                      viewModel: viewModel)
+                    ZStack {
+                        MapView(viewModel)
+                            .ignoresSafeArea()
+                        BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) {
+                            SelectedCityBottomSheetView(viewModel: viewModel)
+                        }.edgesIgnoringSafeArea(.all)
+                    }.opacity(isEditing ? 0 : 1)
                 }
             }
             .navigationBarBackButtonHidden(true)
@@ -103,10 +85,10 @@ struct SearchView: View {
                                         Text(Localization.locations.localized)
                                             .fontWeight(.regular)
                                     }, trailing:
-                                    Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                        IconView(name: AppImage.plus, color: .black)
-                                            .padding(.leading, MagicSpacer.x4)
-                                    }
+                                        Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
+                                            IconView(name: AppImage.plus, color: .black)
+                                                .padding(.leading, MagicSpacer.x4)
+                                        }
             )
         }
         else {
@@ -119,7 +101,7 @@ struct SearchView: View {
                                 Text(Localization.popularCities.localized).modifier(HeadText())
                                 Spacer()
                             }
-                            BreadcrumbsSubview(cities: $popularCities, selectedCity: $viewModel.selectedCity)
+                            BreadcrumbsSubview(cities: viewModel.popularCities, selectedCity: $viewModel.selectedCityName)
                             Divider()
                                 .padding(.top, MagicSpacer.x4)
                             HStack {
@@ -134,11 +116,13 @@ struct SearchView: View {
                         }
                         .padding([.top, .horizontal], MagicSpacer.x4)
                     } else {
-                        SearchResultTable(cities: $popularCities,
-                                          location: $location,
-                                          selectedCity: $viewModel.selectedCity,
+                        SearchResultTable(cities: viewModel.popularCities,
+                                          searchLocation: $searchLocation,
+                                          selectedCity: $viewModel.selectedCityName,
                                           isEditing: $isEditing,
-                                          isMapSearch: false)
+                                          bottomSheetShown: $viewModel.bottomSheetShown,
+                                          isMapSearch: false,
+                                          viewModel: viewModel)
                     }
                 }
                 .modifier(ClearNavigationBar())
@@ -148,7 +132,7 @@ struct SearchView: View {
                                                 IconView(name: AppImage.leftChevron, color: .black)
                                                     .padding(.leading, leadingNavPadding)
                                             }
-                                            SearchBar(location: $location, isEditing: $isEditing)
+                                            SearchBar(location: $searchLocation, isEditing: $isEditing)
                                         }
                                         .frame(width: geometry.size.width)
                 )
@@ -159,6 +143,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: SearchViewModel(selectedCity: .constant("Moscow")))
+        SearchView(viewModel: SearchViewModel(selectedCity: .constant("Moscow"), networkService: DIContainer.shared.networkService))
     }
 }

@@ -42,7 +42,7 @@ struct LocationsView: View {
                             })
         .onAppear(perform: viewModel.startFetchingData)
         HStack {
-            NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCity: $viewModel.selectedCity))) {
+            NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCityName: $viewModel.selectedCity))) {
                 HStack {
                     IconView(name: AppImage.plusCircle, fontSize: 17, color: .blue)
                     Text(Localization.addLocation.localized).modifier(LinkText())

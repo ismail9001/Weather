@@ -18,6 +18,8 @@ enum Localization: String {
     case popularCities = "POPULAR_CITIES";
     case showMap = "SHOW_MAP";
     case enterLocation = "ENTER_LOCATION";
+    case cancel = "CANCEL";
+    case add = "ADD";
     
     // Wind directions
     case north = "N";

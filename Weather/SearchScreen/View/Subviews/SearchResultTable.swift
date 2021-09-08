@@ -9,21 +9,28 @@ import SwiftUI
 
 struct SearchResultTable: View {
     
-    @Binding var cities: [City]
-    @Binding var location: String
+    var cities: [City]
+    
+    @Binding var searchLocation: String
     @Binding var selectedCity: String
     @Binding var isEditing: Bool
+    @Binding var bottomSheetShown: Bool
     @State var isMapSearch: Bool
+    
+    
+    @StateObject var viewModel: SearchViewModel
     
     var body: some View {
         ScrollView {
-            ForEach(cities.filter( {$0.name.lowercased().contains(location.lowercased()) }), id: \.self) { city in
+            ForEach(cities.filter( {$0.name.lowercased().contains(searchLocation.lowercased()) }), id: \.self) { city in
                 SearchResultTableCell(city: city, tapAction: {
                     if isMapSearch {
+                        viewModel.getData(selectedCity: city.name)
+                        viewModel.updateMap(with: city)
                         isEditing = false
+                        
                     } else {
-                        selectedCity = city.name
-                        Config.shared.addCity(city.name)
+                        viewModel.updateSelectedCity(with: city)
                         NavigationCoordinator.popToRootView()
                     }
                 })
@@ -35,8 +42,8 @@ struct SearchResultTable: View {
 
 struct SearchResultTable_Previews: PreviewProvider {
     static var previews: some View {
-        SearchResultTable(cities: .constant([City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391)), City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244))]), location: .constant(""), selectedCity: .constant("Moscow"),
-                          isEditing: .constant(false),
-                          isMapSearch: true)
+        SearchResultTable(cities: [City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391)), City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244))], searchLocation: .constant(""), selectedCity: .constant("Moscow"),
+                          isEditing: .constant(false), bottomSheetShown: .constant(true),
+                          isMapSearch: true, viewModel: SearchViewModel(selectedCity: .constant("Moscow"), networkService: DIContainer.shared.networkService))
     }
 }
