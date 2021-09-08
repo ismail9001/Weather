@@ -31,35 +31,34 @@ struct SearchView: View {
                             HStack {
                                 IconView(name: AppImage.magnifyingglass, color: .gray)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 8)
-                                if isEditing {
-                                    Button(action: {
-                                        self.searchLocation = ""
-                                        self.isEditing = false
-                                    }) {
-                                        Image(systemName: AppImage.multipleCircleFill.rawValue)
-                                            .foregroundColor(.gray)
-                                            .padding(.trailing, 8)
-                                    }
+                                    .padding(.leading, MagicSpacer.x2)
+                                Button(action: {
+                                    self.searchLocation = ""
+                                    self.isEditing = false
+                                }) {
+                                    Image(systemName: AppImage.multipleCircleFill.rawValue)
+                                        .foregroundColor(.gray)
+                                        .padding(.trailing, MagicSpacer.x2)
                                 }
+                                .disabled(!isEditing)
+                                .opacity(isEditing ? 1 : 0)
                             }
                         )
                         .padding(.horizontal, 10)
                         .onTapGesture {
                             self.isEditing = true
                         }
-                    
-                    if isEditing {
-                        Button(action: {
-                            self.isEditing = false
-                            self.searchLocation = ""
-                        }) { //TODO анимация правой стороы TF
-                            Text(Localization.cancel.localized)
-                        }
-                        .padding(.trailing, 10)
-                        .transition(.move(edge: .trailing))
-                        .animation(.default)
+                    Button(action: {
+                        self.isEditing = false
+                        self.searchLocation = ""
+                    }) { //TODO анимация правой стороы TF
+                        Text(Localization.cancel.localized)
                     }
+                    .padding(.trailing, 10)
+                    .transition(.move(edge: .trailing))
+                    .animation(.default)
+                    .disabled(!isEditing)
+                    .opacity(isEditing ? 1 : 0)
                 }
                 ZStack {
                     SearchResultTable(cities: viewModel.popularCities,
@@ -84,11 +83,11 @@ struct SearchView: View {
                                         IconView(name: AppImage.leftChevron, color: .black)
                                         Text(Localization.locations.localized)
                                             .fontWeight(.regular)
-                                    }, trailing:
-                                        Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                            IconView(name: AppImage.plus, color: .black)
-                                                .padding(.leading, MagicSpacer.x4)
-                                        }
+                                    }//, trailing:
+//                                        Button(action: { }) {
+//                                            IconView(name: AppImage.plus, color: .black)
+//                                                .padding(.leading, MagicSpacer.x4)
+//                                        }
             )
         }
         else {

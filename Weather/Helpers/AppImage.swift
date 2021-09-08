@@ -25,13 +25,13 @@ enum AppImage: String, CaseIterable {
     case cloud = "cloud.fill"
     case rain = "cloud.rain.fill"
     case snow = "cloud.snow.fill"
-    case sun = "sun.max.fill"
+    case clear = "sun.max.fill"
     case wind = "wind"
     case drop = "drop"
     case compass = "safari"
     
     static func withLabel(_ label: String) -> AppImage {
-        let value = self.allCases.first{ "\($0)" == label }
+        let value = self.allCases.first{ "\($0)" == label.lowercased() }
         guard let value = value else { return AppImage.smoke }
         return value
     }

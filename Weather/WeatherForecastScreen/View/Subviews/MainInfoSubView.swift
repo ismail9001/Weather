@@ -34,7 +34,7 @@ struct MainInfoSubView: View {
             }
             .padding(.leading)
             Spacer()
-            IconView(name: AppImage.cloud, fontSize: mainHeaderTextSize)
+            IconView(name: AppImage.withLabel(cityForecast.weather), fontSize: mainHeaderTextSize)
                 .padding(.trailing, MagicSpacer.x4)
         }
     }

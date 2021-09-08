@@ -20,46 +20,48 @@ struct WeatherForecastView: View {
     var headerHeight: CGFloat = 240.0
     
     var body: some View {
-//        if viewModel.isLoading == true {
-//            ProgressView()
-//        } else {
         NavigationView {
             VStack {
-                ZStack {
-                    Image("cloudy-background")
-                        .resizable()
-                        .ignoresSafeArea()
-                    VStack {
-                        MainInfoSubView(cityForecast: $viewModel.cityForecast, selectedCity: $viewModel.selectedCity)
-                        HStack {
-                            Spacer()
-                            ShortPanelView(cityForecast: $viewModel.cityForecast)
-                            Spacer()
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: MagicSpacer.x2){
-                                    ForEach(0 ..< 10) { i in
-                                        let hour = Calendar.current.component(.hour, from: Date()) + i
-                                        if hour < 25 {
-                                            HourlyForecastCellView(hour: String(hour))
+                if viewModel.isLoading == true {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                } else {
+                    ZStack {
+                        Image("cloudy-background")
+                            .resizable()
+                            .ignoresSafeArea()
+                        VStack {
+                            MainInfoSubView(cityForecast: $viewModel.cityForecast, selectedCity: $viewModel.selectedCity)
+                            HStack {
+                                Spacer()
+                                ShortPanelView(cityForecast: $viewModel.cityForecast)
+                                Spacer()
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: MagicSpacer.x2){
+                                        ForEach(0 ..< 10) { i in
+                                            let hour = Calendar.current.component(.hour, from: Date()) + i
+                                            if hour < 25 {
+                                                HourlyForecastCellView(hour: String(hour))
+                                            }
                                         }
                                     }
                                 }
                             }
+                            .frame(height: hourlyForecastSubviewHeight)
                         }
-                        .frame(height: hourlyForecastSubviewHeight)
                     }
+                    .frame(height: headerHeight)
+                    DailyForecastView(forecasts: viewModel.dailyForecasts, isScrolled: $isScrolled)
+                        .padding(.top, dailyForecastTopPadding)
+                        
+                        .animation(.easeInOut(duration: 0.2), value: isScrolled)
                 }
-                .frame(height: headerHeight)
-                DailyForecastView(forecasts: viewModel.dailyForecasts, isScrolled: $isScrolled)
-                    .padding(.top, dailyForecastTopPadding)
-                    .onAppear(perform: viewModel.startFetchingData)
-                    .animation(.easeInOut(duration: 0.2), value: isScrolled)
             }
+            .onAppear(perform: viewModel.startFetchingData)
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
-//        }
     }
 }
 

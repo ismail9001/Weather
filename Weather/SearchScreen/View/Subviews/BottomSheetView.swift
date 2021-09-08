@@ -12,6 +12,7 @@ private enum Constants {
     static let indicatorHeight: CGFloat = 6
     static let indicatorWidth: CGFloat = 60
     static let snapRatio: CGFloat = 0.25
+    static let bottomSpace: CGFloat = 100
 }
 
 struct BottomSheetView<Content: View>: View {
@@ -19,7 +20,7 @@ struct BottomSheetView<Content: View>: View {
     let maxHeight: CGFloat
     let minHeight: CGFloat
     let content: Content
-    @GestureState private var translation: CGFloat = 0
+    @GestureState private var translation: CGFloat = Constants.bottomSpace
     private var offset: CGFloat {
         isOpen ? 0 : maxHeight
     }
@@ -35,7 +36,7 @@ struct BottomSheetView<Content: View>: View {
     }
     init(isOpen: Binding<Bool>, maxHeight: CGFloat, @ViewBuilder content: () -> Content) {
         self.minHeight = 0
-        self.maxHeight = maxHeight
+        self.maxHeight = maxHeight + Constants.bottomSpace
         self.content = content()
         self._isOpen = isOpen
     }

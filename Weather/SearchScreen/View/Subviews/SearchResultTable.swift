@@ -28,7 +28,6 @@ struct SearchResultTable: View {
                         viewModel.getData(selectedCity: city.name)
                         viewModel.updateMap(with: city)
                         isEditing = false
-                        
                     } else {
                         viewModel.updateSelectedCity(with: city)
                         NavigationCoordinator.popToRootView()
