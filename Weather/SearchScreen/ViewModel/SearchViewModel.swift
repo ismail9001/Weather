@@ -12,11 +12,19 @@ class SearchViewModel: ObservableObject {
     
     let networkService: NetworkService
     
+    //let zoomDelta: Double = 0.040 //todo Nikite
     let zoomDelta: Double = 2
     @Binding var selectedCityName: String
     @Published var bottomSheetShown: Bool
-    @Published var selectedCity: CityForecast
+    @Published var selectedCity: CityForecast {
+        didSet {
+            annotation.removeAll()
+            annotation.append(selectedCity)
+        }
+    }
     @Published var coordinateRegion: MKCoordinateRegion
+    @Published var placeholder: String
+    @Published var annotation: [CityForecast]
     @Published var popularCities: [City] = [City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244)),
                                         City(name: "Kazan", coord: Coordinate(lon: 49.108891, lat: 55.796391)),
                                         City(name: "Samara", coord: Coordinate(lon: 50.221245, lat: 53.241505)),
@@ -28,6 +36,7 @@ class SearchViewModel: ObservableObject {
                                         City(name: "Kaliningrad", coord: Coordinate(lon: 20.51095, lat: 54.70649)),
                                         City(name: "Yekaterinburg", coord: Coordinate(lon: 60.6122, lat: 56.8519)),
                                         City(name: "Ufa", coord: Coordinate(lon: 55.96779, lat: 54.74306))]
+    
     init(selectedCity: Binding<String>, networkService: NetworkService){
         self.networkService = networkService
         self._selectedCityName = selectedCity
@@ -37,6 +46,8 @@ class SearchViewModel: ObservableObject {
                    )
         bottomSheetShown = false
         self.selectedCity = CityForecast.getEmptyForecast()
+        placeholder = Localization.addLocation.localized
+        annotation = []
     }
     
     func updateMap(with city: City) {
@@ -44,16 +55,17 @@ class SearchViewModel: ObservableObject {
             center: CLLocationCoordinate2D(latitude: city.coord.lat, longitude: city.coord.lon),
             span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
         )
-        updateSelectedCity(with: city)
     }
-    //todo refactor
+    
     func updateSelectedCity(with city: City) {
         selectedCityName = city.name
+        placeholder = city.name
         Config.shared.addCity(city.name)
     }
     
     func updateSelectedCity() {
         selectedCityName = selectedCity.cityName
+        placeholder = selectedCity.cityName
         Config.shared.addCity(selectedCity.cityName)
     }
     

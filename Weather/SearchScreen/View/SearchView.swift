@@ -14,59 +14,20 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel: SearchViewModel
     @State var searchLocation: String = ""
-    @State private var isEditing = false
     @State private var mapChoosed = false
     private let leadingNavPadding: CGFloat = 20
     
     var body: some View {
-        if mapChoosed {
-            VStack {
+        GeometryReader { geometry in
+            if mapChoosed {
+            VStack(spacing: 0) {
                 HStack() {
-                    TextField(Localization.enterLocation.localized, text: $searchLocation)
-                        .padding(7)
-                        .padding(.horizontal, 25)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .overlay(
-                            HStack {
-                                IconView(name: AppImage.magnifyingglass, color: .gray)
-                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, MagicSpacer.x2)
-                                Button(action: {
-                                    self.searchLocation = ""
-                                    self.isEditing = false
-                                }) {
-                                    Image(systemName: AppImage.multipleCircleFill.rawValue)
-                                        .foregroundColor(.gray)
-                                        .padding(.trailing, MagicSpacer.x2)
-                                }
-                                .disabled(!isEditing)
-                                .opacity(isEditing ? 1 : 0)
-                            }
-                        )
-                        .padding(.horizontal, 10)
-                        .onTapGesture {
-                            self.isEditing = true
-                        }
-                    Button(action: {
-                        self.isEditing = false
-                        self.searchLocation = ""
-                    }) { //TODO анимация правой стороы TF
-                        Text(Localization.cancel.localized)
-                    }
-                    .padding(.trailing, 10)
-                    .transition(.move(edge: .trailing))
-                    .animation(.default)
-                    .disabled(!isEditing)
-                    .opacity(isEditing ? 1 : 0)
+                    SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
                 }
                 ZStack {
-                    SearchResultTable(cities: viewModel.popularCities,
-                                      searchLocation: $searchLocation,
-                                      selectedCity: $viewModel.selectedCityName,
-                                      isEditing: $isEditing,
+                    SearchResultTable(searchLocation: $searchLocation,
                                       bottomSheetShown: $viewModel.bottomSheetShown,
-                                      isMapSearch: true,
+                                      isMapSearch: $mapChoosed,
                                       viewModel: viewModel)
                     ZStack {
                         MapView(viewModel)
@@ -74,27 +35,27 @@ struct SearchView: View {
                         BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) {
                             SelectedCityBottomSheetView(viewModel: viewModel)
                         }.edgesIgnoringSafeArea(.all)
-                    }.opacity(isEditing ? 0 : 1)
+                    }.opacity(searchLocation.isEmpty ? 1 : 0)
                 }
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
-                                    Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                        IconView(name: AppImage.leftChevron, color: .black)
-                                        Text(Localization.locations.localized)
-                                            .fontWeight(.regular)
-                                    }//, trailing:
-//                                        Button(action: { }) {
-//                                            IconView(name: AppImage.plus, color: .black)
-//                                                .padding(.leading, MagicSpacer.x4)
-//                                        }
+                                    HStack {
+                                        Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
+                                            IconView(name: AppImage.leftChevron, color: .black)
+                                            Text(Localization.locations.localized)
+                                                .fontWeight(.regular)
+                                        }
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal, MagicSpacer.x4)
+                                    .frame(width: geometry.size.width)
             )
         }
         else {
-            GeometryReader { geometry in
                 VStack {
                     Divider()
-                    if !isEditing {
+                    if self.searchLocation.isEmpty {
                         VStack(alignment: .center) {
                             HStack {
                                 Text(Localization.popularCities.localized).modifier(HeadText())
@@ -102,7 +63,7 @@ struct SearchView: View {
                             }
                             BreadcrumbsSubview(cities: viewModel.popularCities, selectedCity: $viewModel.selectedCityName)
                             Divider()
-                                .padding(.top, MagicSpacer.x4)
+                                .padding(.top, MagicSpacer.x2)
                             HStack {
                                 Button(action: { mapChoosed.toggle() }) {
                                     Text(Localization.showMap.localized)
@@ -115,12 +76,9 @@ struct SearchView: View {
                         }
                         .padding([.top, .horizontal], MagicSpacer.x4)
                     } else {
-                        SearchResultTable(cities: viewModel.popularCities,
-                                          searchLocation: $searchLocation,
-                                          selectedCity: $viewModel.selectedCityName,
-                                          isEditing: $isEditing,
+                        SearchResultTable(searchLocation: $searchLocation,
                                           bottomSheetShown: $viewModel.bottomSheetShown,
-                                          isMapSearch: false,
+                                          isMapSearch: $mapChoosed,
                                           viewModel: viewModel)
                     }
                 }
@@ -129,10 +87,10 @@ struct SearchView: View {
                                         HStack {
                                             Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
                                                 IconView(name: AppImage.leftChevron, color: .black)
-                                                    .padding(.leading, leadingNavPadding)
                                             }
-                                            SearchBar(location: $searchLocation, isEditing: $isEditing)
+                                            SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
                                         }
+                                        .padding(.horizontal, MagicSpacer.x4)
                                         .frame(width: geometry.size.width)
                 )
             }

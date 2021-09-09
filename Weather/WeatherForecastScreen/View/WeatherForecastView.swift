@@ -15,7 +15,7 @@ struct WeatherForecastView: View {
     var hourlyForecastSubviewHeight: CGFloat = 88
     
     var dailyForecastTopPadding: CGFloat {
-        return isScrolled ? 0 : 0.0 - hourlyForecastSubviewHeight
+        return isScrolled ? 0 : 0 - hourlyForecastSubviewHeight
     }
     var headerHeight: CGFloat = 240.0
     
@@ -62,6 +62,7 @@ struct WeatherForecastView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -60,9 +60,10 @@
 //  Уникальность городов в списке +
 //  Обновление главной иконки +
 //  Прелоадер всего экрана +
+//  Just убрать +
+//  SearchBar uikit +
+//  Fix bug with TF on map +
+//  Only one annotation on map +
 
-//  TODO Just убрать
-//  TODO SearchBar uikit
-//  TODO Fix bug with TF on map
-//  TODO Only one annotation on map
+//  TODO Fix warning on console
 //  TODO подмена главной подложки
