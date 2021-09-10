@@ -13,7 +13,7 @@ struct HourlyForecastCellView: View {
         VStack(alignment: .leading, spacing: MagicSpacer.x3) {
             Text(hour + ":00")
                 .modifier(SecondaryWhiteText())
-            IconView(name: AppImage.cloud, fontSize: 17)
+            IconView(name: AppImage.cloud, fontSize: 17, color: CustomColor.whiteIconColor)
             Text(Converter.getCelsium(temperature: Double.random(in: 10...25))).modifier(SecondaryWhiteText())
         }
     }

@@ -23,6 +23,7 @@ class SearchViewModel: ObservableObject {
         }
     }
     @Published var coordinateRegion: MKCoordinateRegion
+    var locManager: LocationManager
     @Published var placeholder: String
     @Published var annotation: [CityForecast]
     @Published var popularCities: [City] = [City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244)),
@@ -40,14 +41,16 @@ class SearchViewModel: ObservableObject {
     init(selectedCity: Binding<String>, networkService: NetworkService){
         self.networkService = networkService
         self._selectedCityName = selectedCity
-        coordinateRegion = MKCoordinateRegion(
-                       center: CLLocationCoordinate2D(latitude: 55.751244, longitude: 37.618423),
-                       span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
-                   )
+        
         bottomSheetShown = false
         self.selectedCity = CityForecast.getEmptyForecast()
         placeholder = Localization.addLocation.localized
         annotation = []
+        locManager = LocationManager()
+        coordinateRegion = MKCoordinateRegion(
+                       center: CLLocationCoordinate2D(latitude: 55.751244, longitude: 37.618423),
+                       span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
+                   )
     }
     
     func updateMap(with city: City) {

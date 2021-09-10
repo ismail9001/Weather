@@ -31,18 +31,19 @@ struct SearchView: View {
                                       viewModel: viewModel)
                     ZStack {
                         MapView(viewModel)
-                            .ignoresSafeArea()
-                        BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) {
+                        BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) { //ot contenta
                             SelectedCityBottomSheetView(viewModel: viewModel)
-                        }.edgesIgnoringSafeArea(.all)
-                    }.opacity(searchLocation.isEmpty ? 1 : 0)
+                        }
+                    }
+                    .edgesIgnoringSafeArea(.vertical)
+                    .opacity(searchLocation.isEmpty ? 1 : 0)
                 }
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading:
                                     HStack {
                                         Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                            IconView(name: AppImage.leftChevron, color: .black)
+                                            IconView(name: AppImage.leftChevron, color: CustomColor.darkIconColor)
                                             Text(Localization.locations.localized)
                                                 .fontWeight(.regular)
                                         }
@@ -55,6 +56,7 @@ struct SearchView: View {
         else {
                 VStack {
                     Divider()
+                        .background(Color.gray)
                     if self.searchLocation.isEmpty {
                         VStack(alignment: .center) {
                             HStack {
@@ -63,6 +65,7 @@ struct SearchView: View {
                             }
                             BreadcrumbsSubview(cities: viewModel.popularCities, selectedCity: $viewModel.selectedCityName)
                             Divider()
+                                .background(Color.gray)
                                 .padding(.top, MagicSpacer.x2)
                             HStack {
                                 Button(action: { mapChoosed.toggle() }) {
@@ -86,7 +89,7 @@ struct SearchView: View {
                 .navigationBarItems(leading:
                                         HStack {
                                             Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                                IconView(name: AppImage.leftChevron, color: .black)
+                                                IconView(name: AppImage.leftChevron, color: CustomColor.darkIconColor)
                                             }
                                             SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
                                         }

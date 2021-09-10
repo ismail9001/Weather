@@ -20,7 +20,7 @@ struct MainInfoSubView: View {
                 .modifier(CityHeader())
             Spacer()
             NavigationLink(destination: ViewFactory.buildView(for: .citiesList(selectedCity: $selectedCity))) {
-                IconView(name: AppImage.list, fontSize: 17)
+                IconView(name: AppImage.list, fontSize: 17, color: CustomColor.whiteIconColor)
             }
             .padding(.trailing, MagicSpacer.x4)
         }
@@ -34,7 +34,7 @@ struct MainInfoSubView: View {
             }
             .padding(.leading)
             Spacer()
-            IconView(name: AppImage.withLabel(cityForecast.weather), fontSize: mainHeaderTextSize)
+            IconView(name: AppImage.withLabel(cityForecast.weather), fontSize: mainHeaderTextSize, color: CustomColor.whiteIconColor)
                 .padding(.trailing, MagicSpacer.x4)
         }
     }

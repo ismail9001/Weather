@@ -11,7 +11,7 @@ struct CityHeader: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.largeTitle)
-            .foregroundColor(.white)
+            .foregroundColor(CustomColor.whiteTextColor)
             .background(Color(.clear))
     }
 }
@@ -20,7 +20,7 @@ struct MainTemperature: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 80, weight: .thin, design: .default))
-            .foregroundColor(.white)
+            .foregroundColor(CustomColor.whiteTextColor)
             .background(Color(.clear))
             .padding(.all, 0.0)
             .frame(height: 72.0, alignment: .center)
@@ -31,7 +31,7 @@ struct SecondaryWhiteText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 12, weight: .regular, design: .default))
-            .foregroundColor(.white)
+            .foregroundColor(CustomColor.whiteTextColor)
             .background(Color(.clear))
     }
 }
@@ -49,7 +49,7 @@ struct DateMainText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 17, weight: .regular, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(CustomColor.textColor)
             .background(Color(.clear))
     }
 }
@@ -58,7 +58,7 @@ struct TemperatureDark: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 22, weight: .regular, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(CustomColor.textColor)
             .background(Color(.clear))
     }
 }
@@ -76,7 +76,7 @@ struct TemperatureLocationDark: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 34, weight: .regular, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(CustomColor.textColor)
             .background(Color(.clear))
     }
 }
@@ -113,7 +113,7 @@ struct HeadText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 17, weight: .semibold, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(CustomColor.textColor)
             .background(Color(.clear))
     }
 }
@@ -122,7 +122,7 @@ struct CityBreadcrumbText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 13, weight: .regular, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(CustomColor.textColor)
             .background(Color(.clear))
     }
 }
@@ -131,7 +131,7 @@ struct CitySearchResultText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(Font.system(size: 15, weight: .regular, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(CustomColor.textColor)
             .background(Color(.clear))
     }
 }

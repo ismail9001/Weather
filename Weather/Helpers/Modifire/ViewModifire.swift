@@ -18,7 +18,7 @@ struct LocationCell: ViewModifier {
             )
             .padding(.vertical, MagicSpacer.x05)
             .padding(.horizontal, MagicSpacer.x4)
-            .background(Color.white)
+            .background(CustomColor.backgroundColor)
     }
 }
 
@@ -92,7 +92,7 @@ struct DeleteButton: ViewModifier {
 struct ClearNavigationBar: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .navigationBarColor(.white, textColor: .black)
+            .navigationBarColor(UIColor(CustomColor.backgroundColor), textColor: UIColor(CustomColor.textColor))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
     }

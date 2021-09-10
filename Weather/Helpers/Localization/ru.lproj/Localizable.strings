@@ -64,6 +64,10 @@
 //  SearchBar uikit +
 //  Fix bug with TF on map +
 //  Only one annotation on map +
+//  подмена главной подложки +
 
+//  TODO dark theme
+//  TODO async back requests
+//  TODO начальная точка с симулятора
+//  TODO определение погоды по точке
 //  TODO Fix warning on console
-//  TODO подмена главной подложки

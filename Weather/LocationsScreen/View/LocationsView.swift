@@ -22,7 +22,7 @@ struct LocationsView: View {
                         viewModel.deleteLocation(location: city)
                     }
                     .onTapGesture {
-                        viewModel.selectCity(with: city.cityName) // Nikite показать решение
+                        viewModel.selectCity(with: city.cityName)
                         NavigationCoordinator.popToRootView()
                     }
                 }
@@ -31,13 +31,13 @@ struct LocationsView: View {
         .modifier(ClearNavigationBar())
         .navigationTitle(Localization.locations.localized)
         .navigationBarItems(leading:
-                                Button(action: {self.presentationMode.wrappedValue.dismiss() }) { IconView(name: AppImage.leftChevron, color: .black)},
+                                Button(action: {self.presentationMode.wrappedValue.dismiss() }) { IconView(name: AppImage.leftChevron, color: CustomColor.darkIconColor)},
                             trailing: Button(action: {
                                 isEditing.toggle()
                             }) { if !isEditing {
-                                IconView(name: AppImage.squareAndPencil, color: .black)
+                                IconView(name: AppImage.squareAndPencil, color: CustomColor.darkIconColor)
                             } else {
-                                IconView(name: AppImage.checkMark, color: .black)
+                                IconView(name: AppImage.checkMark, color: CustomColor.darkIconColor)
                             }
                             })
         .onAppear(perform: viewModel.startFetchingData)

@@ -19,7 +19,7 @@ struct SearchResultTableCell: View {
             }
             Spacer()
         }
-        .background(Color.white)
+        .background(CustomColor.backgroundColor)
         .padding(.leading, 43)
         .onTapGesture {
             tapAction()

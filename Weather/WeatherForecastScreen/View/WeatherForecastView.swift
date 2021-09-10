@@ -27,9 +27,11 @@ struct WeatherForecastView: View {
                         .scaleEffect(1.5)
                 } else {
                     ZStack {
-                        Image("cloudy-background")
+                        Image(AppBackground.withCase(viewModel.cityForecast.weather))
                             .resizable()
-                            .ignoresSafeArea()
+                            .aspectRatio(contentMode: .fill)
+                            .edgesIgnoringSafeArea([.top])
+                            .brightness(-0.1)
                         VStack {
                             MainInfoSubView(cityForecast: $viewModel.cityForecast, selectedCity: $viewModel.selectedCity)
                             HStack {
@@ -53,7 +55,7 @@ struct WeatherForecastView: View {
                     .frame(height: headerHeight)
                     DailyForecastView(forecasts: viewModel.dailyForecasts, isScrolled: $isScrolled)
                         .padding(.top, dailyForecastTopPadding)
-                        
+                        .edgesIgnoringSafeArea([.vertical])
                         .animation(.easeInOut(duration: 0.2), value: isScrolled)
                 }
             }

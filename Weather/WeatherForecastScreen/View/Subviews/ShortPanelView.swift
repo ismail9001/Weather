@@ -13,9 +13,9 @@ struct ShortPanelView: View {
     
     var body: some View {
         VStack(spacing: MagicSpacer.x2){
-            IconView(name: AppImage.wind).frame(alignment: .center)
-            IconView(name: AppImage.compass).frame(alignment: .center)
-            IconView(name: AppImage.drop).frame(alignment: .center)
+            IconView(name: AppImage.wind, color: CustomColor.whiteIconColor).frame(alignment: .center)
+            IconView(name: AppImage.compass, color: CustomColor.whiteIconColor).frame(alignment: .center)
+            IconView(name: AppImage.drop, color: CustomColor.whiteIconColor).frame(alignment: .center)
         }
         VStack(alignment: .leading, spacing: MagicSpacer.x3){
             Text("\(cityForecast.windSpeed) \(Localization.kmh.localized), \(cityForecast.windDirection.description)").modifier(SecondaryWhiteText())

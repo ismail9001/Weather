@@ -21,7 +21,7 @@ struct DailyForecastView: View {
                         DailyForecastCellView(forecast: forecast)
                         Divider()
                     }
-                }.background(Color.white)
+                }.background(CustomColor.backgroundColor)
                 GeometryReader { geometry in
                     let offset = geometry.frame(in: .named("scroll")).origin.y
                     Color.clear.preference(key: ViewOffsetKey.self, value: offset)
