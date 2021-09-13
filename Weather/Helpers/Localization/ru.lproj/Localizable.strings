@@ -18,6 +18,7 @@
 "CANCEL" = "Отмена";
 "ADD" = "Добавить";
 "LOST_CONNECTION" = "Нет интернет соединения";
+"MY_LOCATION" = "Мое местоположение";
 
 //Wind Direction
 "N" = "Север";

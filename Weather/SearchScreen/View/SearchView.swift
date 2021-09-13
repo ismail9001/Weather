@@ -31,7 +31,7 @@ struct SearchView: View {
                                       viewModel: viewModel)
                     ZStack {
                         MapView(viewModel: viewModel)
-                        BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) { //ot contenta
+                        BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) { //TODO ot contenta
                             SelectedCityBottomSheetView(viewModel: viewModel)
                         }
                     }
@@ -48,6 +48,10 @@ struct SearchView: View {
                                                 .fontWeight(.regular)
                                         }
                                         Spacer()
+                                        Button(action: { viewModel.getMyLocation()}) {
+                                            Text(Localization.myLocation.localized).fontWeight(.regular)
+                                            IconView(name: AppImage.mapPin, color: CustomColor.darkIconColor)
+                                        }
                                     }
                                     .padding(.horizontal, MagicSpacer.x3)
                                     .frame(width: geometry.size.width)
@@ -96,6 +100,7 @@ struct SearchView: View {
                                         .padding(.horizontal, MagicSpacer.x3)
                                         .padding(.trailing, MagicSpacer.x1)
                                         .frame(width: geometry.size.width)
+
                 )
             }
         }

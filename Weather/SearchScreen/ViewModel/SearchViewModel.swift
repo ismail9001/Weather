@@ -73,6 +73,14 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    func getMyLocation() {
+        coordinateRegion = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: locManager.latitude, longitude: locManager.longitude),
+            span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
+        )
+        bottomSheetShown = false
+    }
+    
     func getDataByCoord(lat: Double, lon: Double) {
         networkService.getWeatherDataByCoord(lat: lat, lon: lon){ [weak self] cityResponse in
             guard let self = self else { return }
