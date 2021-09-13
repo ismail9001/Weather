@@ -43,7 +43,6 @@ struct MapView: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         mapView.setRegion(viewModel.coordinateRegion, animated: false)
-//        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.locManager.latitude, longitude: viewModel.locManager.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)), animated: false)
         DispatchQueue.main.async {
             self.myMapView = mapView
         }
@@ -58,7 +57,6 @@ struct MapView: UIViewRepresentable {
         let annotations = view.annotations
         view.removeAnnotations(annotations)
         view.setRegion(viewModel.coordinateRegion, animated: false)
-//        view.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.locManager.latitude, longitude: viewModel.locManager.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)), animated: false)
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: viewModel.selectedCity.coord.lat, longitude: viewModel.selectedCity.coord.lon)
         view.addAnnotation(annotation)

@@ -36,8 +36,8 @@ struct BottomSheetView<Content: View>: View {
     }
     init(isOpen: Binding<Bool>, maxHeight: CGFloat, @ViewBuilder content: () -> Content) {
         self.minHeight = 0
-        self.maxHeight = maxHeight + Constants.bottomSpace
         self.content = content()
+        self.maxHeight = maxHeight + Constants.bottomSpace
         self._isOpen = isOpen
     }
     var body: some View {

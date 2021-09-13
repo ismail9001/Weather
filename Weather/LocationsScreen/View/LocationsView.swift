@@ -42,7 +42,7 @@ struct LocationsView: View {
                             })
         .onAppear(perform: viewModel.startFetchingData)
         HStack {
-            NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCityName: $viewModel.selectedCity))) {
+            NavigationLink(destination: ViewFactory.buildView(for: .search(selectedCityName: $viewModel.selectedCityName))) {
                 HStack {
                     IconView(name: AppImage.plusCircle, fontSize: 17, color: .blue)
                     Text(Localization.addLocation.localized).modifier(LinkText())
@@ -57,6 +57,6 @@ struct LocationsView: View {
 struct LocationsView_Previews: PreviewProvider {
     static var previews: some View {
         let networkService = DIContainer.shared.networkService
-        LocationsView(viewModel: LocationsViewModel(networkService: networkService, selectedCity: .constant("Moscow")))
+        LocationsView(viewModel: LocationsViewModel(networkService: networkService, selectedCityName: .constant("Moscow")))
     }
 }

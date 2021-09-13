@@ -50,8 +50,8 @@ struct SelectedCityBottomSheetView: View {
     }
 }
 
-//struct SelectedCityBottomSheetView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SelectedCityBottomSheetView(isOpen: .constant(true), city: CityForecast.getEmptyForecast())
-//    }
-//}
+struct SelectedCityBottomSheetView_Previews: PreviewProvider {
+    static var previews: some View {
+        SelectedCityBottomSheetView(viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService, locService: DIContainer.shared.locationService))
+    }
+}

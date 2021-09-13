@@ -11,9 +11,10 @@ import SystemConfiguration
 
 class NetworkReachability: ObservableObject {
     @Published private(set) var reachable: Bool = false
-    private let reachability = SCNetworkReachabilityCreateWithName(nil, "google.com")
+    private let reachability: SCNetworkReachability?
 
     init() {
+        reachability = SCNetworkReachabilityCreateWithName(nil, "google.com")
         self.reachable = checkConnection()
     }
 
@@ -27,7 +28,8 @@ class NetworkReachability: ObservableObject {
 
     func checkConnection() -> Bool {
         var flags = SCNetworkReachabilityFlags()
-        SCNetworkReachabilityGetFlags(reachability!, &flags)
+        guard let reachability = reachability else { return false }
+        SCNetworkReachabilityGetFlags(reachability, &flags)
 
         return isNetworkReachable(with: flags)
     }

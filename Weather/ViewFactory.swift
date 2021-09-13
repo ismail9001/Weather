@@ -17,7 +17,7 @@ struct ViewFactory {
         }
         
         case forecast,
-             citiesList(selectedCity: Binding<String>),
+             citiesList(selectedCityName: Binding<String>),
              search(selectedCityName: Binding<String>)
         
         var rowType: StringType {
@@ -36,10 +36,10 @@ struct ViewFactory {
         switch type {
         case .forecast:
             return AnyView(WeatherForecastViewBuilder.view())
-        case let .citiesList(selectedCity):
-            return AnyView(LocationsViewBuilder.view(selectedCity: selectedCity))
-        case let .search(selectedCity):
-            return AnyView(SearchViewBuilder.view(selectedCityName: selectedCity))
+        case let .citiesList(selectedCityName):
+            return AnyView(LocationsViewBuilder.view(selectedCityName: selectedCityName))
+        case let .search(selectedCityName):
+            return AnyView(SearchViewBuilder.view(selectedCityName: selectedCityName))
         }
     }
 }

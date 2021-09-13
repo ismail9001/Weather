@@ -13,12 +13,12 @@ class LocationsViewModel: ObservableObject {
     let networkService: NetworkService
     var timer: Timer?
     
-    @Binding var selectedCity: String
+    @Binding var selectedCityName: String
     @Published var citiesForecast: [CityForecast]
     
-    init(networkService: NetworkService, selectedCity: Binding<String>) {
+    init(networkService: NetworkService, selectedCityName: Binding<String>) {
         self.networkService = networkService
-        self._selectedCity = selectedCity
+        self._selectedCityName = selectedCityName
         self.citiesForecast = []
     }
 
@@ -28,7 +28,7 @@ class LocationsViewModel: ObservableObject {
     }
     
     func selectCity(with city: String) {
-        selectedCity = city
+        selectedCityName = city
     }
     
     func deleteLocation(location: CityForecast) {

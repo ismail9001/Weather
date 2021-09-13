@@ -10,7 +10,7 @@ import SwiftUI
 struct MainInfoSubView: View {
     
     @Binding var cityForecast: CityForecast
-    @Binding var selectedCity: String
+    @Binding var selectedCityName: String
     let mainHeaderTextSize: CGFloat = 72.0
     
     var body: some View {
@@ -19,7 +19,7 @@ struct MainInfoSubView: View {
                 .padding(.leading)
                 .modifier(CityHeader())
             Spacer()
-            NavigationLink(destination: ViewFactory.buildView(for: .citiesList(selectedCity: $selectedCity))) {
+            NavigationLink(destination: ViewFactory.buildView(for: .citiesList(selectedCityName: $selectedCityName))) {
                 IconView(name: AppImage.list, fontSize: 17, color: CustomColor.whiteIconColor)
             }
             .padding(.trailing, MagicSpacer.x4)
@@ -42,6 +42,6 @@ struct MainInfoSubView: View {
 
 //struct MainInfoSubView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        MainInfoSubView(cityForecast: .constant(testCityForecast), selectedCity: .constant(CityForecast.getEmptyForecast())
+//        MainInfoSubView(cityForecast: .constant(testCityForecast), selectedCityName: .constant(CityForecast.getEmptyForecast())
 //    }
 //}

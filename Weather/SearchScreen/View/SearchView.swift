@@ -15,49 +15,52 @@ struct SearchView: View {
     @StateObject var viewModel: SearchViewModel
     @State var searchLocation: String = ""
     @State private var mapChoosed = false
+    @State private var bottomSheetHeight: CGFloat = 0
     private let leadingNavPadding: CGFloat = 20
     
     var body: some View {
         GeometryReader { geometry in
             if mapChoosed {
-            VStack(spacing: 0) {
-                HStack() {
-                    SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
-                }
-                ZStack {
-                    SearchResultTable(searchLocation: $searchLocation,
-                                      bottomSheetShown: $viewModel.bottomSheetShown,
-                                      isMapSearch: $mapChoosed,
-                                      viewModel: viewModel)
-                    ZStack {
-                        MapView(viewModel: viewModel)
-                        BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) { //TODO ot contenta
-                            SelectedCityBottomSheetView(viewModel: viewModel)
-                        }
+                VStack(spacing: 0) {
+                    HStack() {
+                        SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
                     }
-                    .edgesIgnoringSafeArea(.vertical)
-                    .opacity(searchLocation.isEmpty ? 1 : 0)
+                    ZStack {
+                        SearchResultTable(searchLocation: $searchLocation,
+                                          bottomSheetShown: $viewModel.bottomSheetShown,
+                                          isMapSearch: $mapChoosed,
+                                          viewModel: viewModel)
+                        ZStack {
+                            MapView(viewModel: viewModel)
+                            BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: bottomSheetHeight) {
+                                SelectedCityBottomSheetView(viewModel: viewModel).readSize { size in
+                                    bottomSheetHeight = size.height
+                                }
+                            }
+                        }
+                        .edgesIgnoringSafeArea(.vertical)
+                        .opacity(searchLocation.isEmpty ? 1 : 0)
+                    }
                 }
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading:
+                                        HStack {
+                                            Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
+                                                IconView(name: AppImage.leftChevron, color: CustomColor.darkIconColor)
+                                                Text(Localization.locations.localized)
+                                                    .fontWeight(.regular)
+                                            }
+                                            Spacer()
+                                            Button(action: { viewModel.getMyLocation()}) {
+                                                Text(Localization.myLocation.localized).fontWeight(.regular)
+                                                IconView(name: AppImage.mapPin, color: CustomColor.darkIconColor)
+                                            }
+                                        }
+                                        .padding(.horizontal, MagicSpacer.x3)
+                                        .frame(width: geometry.size.width)
+                )
             }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading:
-                                    HStack {
-                                        Button(action: {self.presentationMode.wrappedValue.dismiss() }) {
-                                            IconView(name: AppImage.leftChevron, color: CustomColor.darkIconColor)
-                                            Text(Localization.locations.localized)
-                                                .fontWeight(.regular)
-                                        }
-                                        Spacer()
-                                        Button(action: { viewModel.getMyLocation()}) {
-                                            Text(Localization.myLocation.localized).fontWeight(.regular)
-                                            IconView(name: AppImage.mapPin, color: CustomColor.darkIconColor)
-                                        }
-                                    }
-                                    .padding(.horizontal, MagicSpacer.x3)
-                                    .frame(width: geometry.size.width)
-            )
-        }
-        else {
+            else {
                 VStack {
                     Divider()
                         .background(Color.gray)
@@ -100,7 +103,7 @@ struct SearchView: View {
                                         .padding(.horizontal, MagicSpacer.x3)
                                         .padding(.trailing, MagicSpacer.x1)
                                         .frame(width: geometry.size.width)
-
+                                    
                 )
             }
         }

@@ -33,7 +33,7 @@ struct WeatherForecastView: View {
                             .edgesIgnoringSafeArea([.top])
                             .brightness(-0.1)
                         VStack {
-                            MainInfoSubView(cityForecast: $viewModel.cityForecast, selectedCity: $viewModel.selectedCity)
+                            MainInfoSubView(cityForecast: $viewModel.cityForecast, selectedCityName: $viewModel.selectedCity)
                             HStack {
                                 Spacer()
                                 ShortPanelView(cityForecast: $viewModel.cityForecast)
