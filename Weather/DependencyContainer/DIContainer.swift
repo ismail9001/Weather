@@ -12,4 +12,5 @@ final class DIContainer {
     static let shared = DIContainer()
     
     lazy var networkService = NetworkService.shared
+    lazy var locationService = LocationManager()
 }

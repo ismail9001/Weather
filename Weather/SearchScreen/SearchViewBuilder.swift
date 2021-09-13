@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchViewBuilder {
     
     static func view(selectedCityName: Binding<String>) -> some View {
-        let viewModel = SearchViewModel(selectedCityName: selectedCityName, networkService: DIContainer.shared.networkService)
+        let viewModel = SearchViewModel(selectedCityName: selectedCityName, networkService: DIContainer.shared.networkService, locService: DIContainer.shared.locationService)
         return SearchView(viewModel: viewModel)
     }
 }

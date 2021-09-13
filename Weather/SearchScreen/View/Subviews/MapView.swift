@@ -8,25 +8,6 @@
 import SwiftUI
 import MapKit
 
-//struct MapView: View {
-//    @ObservedObject var viewModel: SearchViewModel
-//
-//    init(_ viewModel: SearchViewModel) {
-//        self.viewModel = viewModel
-//    }
-//
-//    var body: some View {
-//        Map(coordinateRegion: $viewModel.coordinateRegion, annotationItems: viewModel.annotation){
-//            city in
-//            MapMarker(coordinate: CLLocationCoordinate2D(latitude: city.coord.lat, longitude: city.coord.lon))
-//        }
-//    }
-//}
-
-
-import SwiftUI
-import MapKit
-
 struct MapView: UIViewRepresentable {
     
     @ObservedObject var viewModel: SearchViewModel
@@ -62,8 +43,9 @@ struct MapView: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         mapView.setRegion(viewModel.coordinateRegion, animated: false)
+//        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.locManager.latitude, longitude: viewModel.locManager.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)), animated: false)
         DispatchQueue.main.async {
-                    self.myMapView = mapView
+            self.myMapView = mapView
         }
         
         let gRecognizer = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.addAnnotationOnTapGesture(sender:)))
@@ -76,6 +58,7 @@ struct MapView: UIViewRepresentable {
         let annotations = view.annotations
         view.removeAnnotations(annotations)
         view.setRegion(viewModel.coordinateRegion, animated: false)
+//        view.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: viewModel.locManager.latitude, longitude: viewModel.locManager.longitude), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)), animated: false)
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: viewModel.selectedCity.coord.lat, longitude: viewModel.selectedCity.coord.lon)
         view.addAnnotation(annotation)

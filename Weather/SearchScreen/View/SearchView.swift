@@ -104,6 +104,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService))
+        SearchView(viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService, locService: DIContainer.shared.locationService))
     }
 }

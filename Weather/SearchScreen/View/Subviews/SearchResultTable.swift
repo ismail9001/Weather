@@ -37,6 +37,6 @@ struct SearchResultTable: View {
 struct SearchResultTable_Previews: PreviewProvider {
     static var previews: some View {
         SearchResultTable(searchLocation: .constant(""), bottomSheetShown: .constant(true),
-                          isMapSearch: .constant(true), viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService))
+                          isMapSearch: .constant(true), viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService, locService: DIContainer.shared.locationService))
     }
 }
