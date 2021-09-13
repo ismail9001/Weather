@@ -25,7 +25,7 @@ struct CityForecast: Identifiable, Hashable {
     static func convertFrom(response: OneCallResponse) -> CityForecast {
         
         let forecast = CityForecast(cityName: response.name,
-                                    cityRegion: response.sys.country,
+                                    cityRegion: response.sys.country ?? "",
                                     temperature: Converter.getCelsium(temperature: response.main.temp),
                                     weather: "\(response.weather[0].main)",
                                     dayNightTemperature: "\(Converter.getCelsium(temperature: response.main.temp_max))/\(Converter.getCelsium(temperature: response.main.temp_min))",
@@ -51,7 +51,7 @@ struct CityForecast: Identifiable, Hashable {
                                     windDirection: WindDirection.north,
                                     pressure: 0,
                                     humidity: 0,
-                                    coord: Coordinates(lon: 0.0, lat: 0.0))
+                                    coord: Coordinates(lon: 37.618423, lat: 55.751244))
         return forecast
     }
 }

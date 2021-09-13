@@ -12,7 +12,7 @@ final class Config {
     let googleApiKey = "AIzaSyBn8KiRxl761CALtUeIkfk152JzFB_1AqM"
     var cities: Set<String> = ["Moscow", "Kazan", "Samara"]
     
-    static var shared: Config = {
+    static let shared: Config = {
         let instance = Config()
         return instance
     }()

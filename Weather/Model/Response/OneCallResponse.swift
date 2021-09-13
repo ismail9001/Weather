@@ -31,7 +31,7 @@ struct MainInfoResponse: Codable {
 }
 
 struct CountryResponse: Codable {
-    var country: String
+    var country: String?
 }
 
 struct WindInfoResponse: Codable {

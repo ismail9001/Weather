@@ -20,8 +20,7 @@ struct SearchResultTable: View {
                                     $0.name.lowercased().contains(searchLocation.lowercased()) }, id: \.self) { city in
                 SearchResultTableCell(city: city, tapAction: {
                     if isMapSearch {
-                        viewModel.getData(selectedCity: city.name)
-                        viewModel.updateMap(with: city)
+                        viewModel.getDataByName(selectedCity: city.name)
                         searchLocation = ""
                         viewModel.placeholder = city.name
                     } else {
@@ -38,6 +37,6 @@ struct SearchResultTable: View {
 struct SearchResultTable_Previews: PreviewProvider {
     static var previews: some View {
         SearchResultTable(searchLocation: .constant(""), bottomSheetShown: .constant(true),
-                          isMapSearch: .constant(true), viewModel: SearchViewModel(selectedCity: .constant("Moscow"), networkService: DIContainer.shared.networkService))
+                          isMapSearch: .constant(true), viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService))
     }
 }

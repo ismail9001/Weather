@@ -46,7 +46,9 @@ struct BottomSheetView<Content: View>: View {
                 self.indicator.padding()
                 self.content
             }
-            .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
+            .frame(width: geometry.size.width,
+                   height: self.maxHeight,
+                   alignment: .top)
             .background(CustomColor.backgroundColor)
             .cornerRadius(Constants.radius)
             .frame(height: geometry.size.height, alignment: .bottom)

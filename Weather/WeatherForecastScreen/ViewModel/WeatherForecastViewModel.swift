@@ -11,12 +11,13 @@ import SwiftUI
 class WeatherForecastViewModel: ObservableObject {
     
     let networkService: NetworkService
+    let networkReachability: NetworkReachability
     var timer: Timer?
-    
     @Published var dailyForecasts: [DailyForecast]
     @Published var cityForecast: CityForecast
     @Published var selectedCity: String
     @Published var isLoading: Bool
+    @Published var isNotConnected: Bool
     
     init(networkService: NetworkService) {
         self.networkService = networkService
@@ -24,6 +25,8 @@ class WeatherForecastViewModel: ObservableObject {
         self.dailyForecasts = Array()
         self.selectedCity = "Kazan"
         self.isLoading = false
+        self.isNotConnected = false
+        self.networkReachability = NetworkReachability()
     }
     
     func startFetchingData() {
@@ -51,10 +54,15 @@ class WeatherForecastViewModel: ObservableObject {
                 self.dailyForecasts.append(DailyForecast(response: DailyListForecastResponse(dt: 1630238673 + (i * 60 * 60 * 24), temperature: TempResponse(day: Double.random(in: 1...20), night: Double.random(in: 1...20)), weather: [WeatherInfoResponse(main: AppImage.allCases.randomElement()?.rawValue ?? AppImage.cloud.rawValue)])))
             }
         }
-        
-        networkService.getWeatherDataByCity(city: selectedCity) { [weak self] cityResponse in
-            guard let self = self else { return }
-            self.cityForecast = CityForecast.convertFrom(response: cityResponse)
+        if networkReachability.checkConnection() {
+            isNotConnected = false
+            networkService.getWeatherDataByCity(city: selectedCity) { [weak self] cityResponse in
+                guard let self = self else { return }
+                self.cityForecast = CityForecast.convertFrom(response: cityResponse)
+                self.isLoading = false
+            }
+        } else {
+            isNotConnected = true
             self.isLoading = false
         }
     }

@@ -30,7 +30,7 @@ struct SearchView: View {
                                       isMapSearch: $mapChoosed,
                                       viewModel: viewModel)
                     ZStack {
-                        MapView(viewModel)
+                        MapView(viewModel: viewModel)
                         BottomSheetView(isOpen: $viewModel.bottomSheetShown, maxHeight: 200) { //ot contenta
                             SelectedCityBottomSheetView(viewModel: viewModel)
                         }
@@ -49,7 +49,7 @@ struct SearchView: View {
                                         }
                                         Spacer()
                                     }
-                                    .padding(.horizontal, MagicSpacer.x4)
+                                    .padding(.horizontal, MagicSpacer.x3)
                                     .frame(width: geometry.size.width)
             )
         }
@@ -93,7 +93,8 @@ struct SearchView: View {
                                             }
                                             SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
                                         }
-                                        .padding(.horizontal, MagicSpacer.x4)
+                                        .padding(.horizontal, MagicSpacer.x3)
+                                        .padding(.trailing, MagicSpacer.x1)
                                         .frame(width: geometry.size.width)
                 )
             }
@@ -103,6 +104,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: SearchViewModel(selectedCity: .constant("Moscow"), networkService: DIContainer.shared.networkService))
+        SearchView(viewModel: SearchViewModel(selectedCityName: .constant("Moscow"), networkService: DIContainer.shared.networkService))
     }
 }

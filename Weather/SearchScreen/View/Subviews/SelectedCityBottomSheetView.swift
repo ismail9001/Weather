@@ -14,7 +14,7 @@ struct SelectedCityBottomSheetView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: MagicSpacer.x05) {
-                    Text(viewModel.selectedCity.cityName).modifier(DateMainText())
+                    if !viewModel.selectedCity.cityName.isEmpty { Text(viewModel.selectedCity.cityName).modifier(DateMainText())}
                     Text(viewModel.selectedCity.description).modifier(LocationDescription())
                 }
                 .padding(.leading, MagicSpacer.x4)

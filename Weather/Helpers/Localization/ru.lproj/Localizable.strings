@@ -17,6 +17,7 @@
 "ENTER_LOCATION" = "Введите локацию";
 "CANCEL" = "Отмена";
 "ADD" = "Добавить";
+"LOST_CONNECTION" = "Нет интернет соединения";
 
 //Wind Direction
 "N" = "Север";
@@ -66,8 +67,12 @@
 //  Only one annotation on map +
 //  подмена главной подложки +
 
-//  TODO dark theme
+
+//  dark theme +
+//  no internet connection alert
+//  определение погоды по точке +
+
+
 //  TODO async back requests
 //  TODO начальная точка с симулятора
-//  TODO определение погоды по точке
 //  TODO Fix warning on console

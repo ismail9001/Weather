@@ -51,6 +51,8 @@ struct WeatherForecastView: View {
                             }
                             .frame(height: hourlyForecastSubviewHeight)
                         }
+                        .padding(.horizontal, MagicSpacer.x4)
+                        
                     }
                     .frame(height: headerHeight)
                     DailyForecastView(forecasts: viewModel.dailyForecasts, isScrolled: $isScrolled)
@@ -58,6 +60,9 @@ struct WeatherForecastView: View {
                         .edgesIgnoringSafeArea([.vertical])
                         .animation(.easeInOut(duration: 0.2), value: isScrolled)
                 }
+            }
+            .alert(isPresented: $viewModel.isNotConnected) {
+                Alert(title: Text(Localization.lostConnection.localized))
             }
             .onAppear(perform: viewModel.startFetchingData)
             .navigationBarTitle("")

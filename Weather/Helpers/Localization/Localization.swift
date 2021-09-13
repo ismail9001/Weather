@@ -20,6 +20,7 @@ enum Localization: String {
     case enterLocation = "ENTER_LOCATION";
     case cancel = "CANCEL";
     case add = "ADD";
+    case lostConnection = "LOST_CONNECTION";
     
     // Wind directions
     case north = "N";

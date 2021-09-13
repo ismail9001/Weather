@@ -17,6 +17,7 @@
 "ENTER_LOCATION" = "Enter location";
 "CANCEL" = "Cancel";
 "ADD" = "Add";
+"LOST_CONNECTION" = "No Internet connection";
 
 //Wind Direction
 "N" = "North";

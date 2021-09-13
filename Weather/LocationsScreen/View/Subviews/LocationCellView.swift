@@ -27,7 +27,7 @@ struct LocationCellView: View {
                 }
                 Spacer()
                 if !isEditing {
-                    IconView(name: AppImage.cloud, fontSize: 24, color: .gray)
+                    IconView(name: AppImage.withLabel(cityModel.weather), fontSize: 24, color: .gray)
                     Text(cityModel.temperature).modifier(TemperatureLocationDark())
                         .padding(.leading, MagicSpacer.x4)
                 } else {

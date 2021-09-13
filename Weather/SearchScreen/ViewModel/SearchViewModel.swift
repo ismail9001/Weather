@@ -12,18 +12,18 @@ class SearchViewModel: ObservableObject {
     
     let networkService: NetworkService
     
-    //let zoomDelta: Double = 0.040 //todo Nikite
     let zoomDelta: Double = 2
+    var locManager: LocationManager
     @Binding var selectedCityName: String
     @Published var bottomSheetShown: Bool
     @Published var selectedCity: CityForecast {
         didSet {
             annotation.removeAll()
             annotation.append(selectedCity)
+            coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: selectedCity.coord.lat, longitude: selectedCity.coord.lon), span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta))
         }
     }
     @Published var coordinateRegion: MKCoordinateRegion
-    var locManager: LocationManager
     @Published var placeholder: String
     @Published var annotation: [CityForecast]
     @Published var popularCities: [City] = [City(name: "Moscow", coord: Coordinate(lon: 37.618423, lat: 55.751244)),
@@ -38,9 +38,9 @@ class SearchViewModel: ObservableObject {
                                         City(name: "Yekaterinburg", coord: Coordinate(lon: 60.6122, lat: 56.8519)),
                                         City(name: "Ufa", coord: Coordinate(lon: 55.96779, lat: 54.74306))]
     
-    init(selectedCity: Binding<String>, networkService: NetworkService){
+    init(selectedCityName: Binding<String>, networkService: NetworkService){
         self.networkService = networkService
-        self._selectedCityName = selectedCity
+        self._selectedCityName = selectedCityName
         
         bottomSheetShown = false
         self.selectedCity = CityForecast.getEmptyForecast()
@@ -51,13 +51,6 @@ class SearchViewModel: ObservableObject {
                        center: CLLocationCoordinate2D(latitude: 55.751244, longitude: 37.618423),
                        span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
                    )
-    }
-    
-    func updateMap(with city: City) {
-        coordinateRegion = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: city.coord.lat, longitude: city.coord.lon),
-            span: MKCoordinateSpan(latitudeDelta: zoomDelta, longitudeDelta: zoomDelta)
-        )
     }
     
     func updateSelectedCity(with city: City) {
@@ -72,8 +65,16 @@ class SearchViewModel: ObservableObject {
         Config.shared.addCity(selectedCity.cityName)
     }
     
-    func getData(selectedCity: String) {
+    func getDataByName(selectedCity: String) {
         networkService.getWeatherDataByCity(city: selectedCity) { [weak self] cityResponse in
+            guard let self = self else { return }
+            self.selectedCity = CityForecast.convertFrom(response: cityResponse)
+            self.bottomSheetShown = true
+        }
+    }
+    
+    func getDataByCoord(lat: Double, lon: Double) {
+        networkService.getWeatherDataByCoord(lat: lat, lon: lon){ [weak self] cityResponse in
             guard let self = self else { return }
             self.selectedCity = CityForecast.convertFrom(response: cityResponse)
             self.bottomSheetShown = true

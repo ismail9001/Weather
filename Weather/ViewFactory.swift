@@ -39,7 +39,7 @@ struct ViewFactory {
         case let .citiesList(selectedCity):
             return AnyView(LocationsViewBuilder.view(selectedCity: selectedCity))
         case let .search(selectedCity):
-            return AnyView(SearchViewBuilder.view(selectedCity: selectedCity))
+            return AnyView(SearchViewBuilder.view(selectedCityName: selectedCity))
         }
     }
 }
