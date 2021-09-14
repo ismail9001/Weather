@@ -16,6 +16,6 @@ struct IconView: View {
     var body: some View {
         Image(systemName: name.rawValue)
             .font(.system(size: fontSize))
-            .foregroundColor(color)
+            .foregroundColor(name == .clear ? .yellow : color)
     }
 }

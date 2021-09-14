@@ -19,7 +19,7 @@ struct SelectedCityBottomSheetView: View {
                 }
                 .padding(.leading, MagicSpacer.x4)
                 Spacer()
-                IconView(name: AppImage.withLabel(viewModel.selectedCity.weather), fontSize: 24, color: .yellow)
+                IconView(name: AppImage.withLabel(viewModel.selectedCity.weather), fontSize: 24, color: .gray)
                 Text(viewModel.selectedCity.temperature)
                     .modifier(TemperatureLocationDark())
                     .padding(.leading, MagicSpacer.x3)

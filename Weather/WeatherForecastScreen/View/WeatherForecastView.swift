@@ -31,7 +31,6 @@ struct WeatherForecastView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .edgesIgnoringSafeArea([.top])
-                            .brightness(-0.1)
                         VStack {
                             MainInfoSubView(cityForecast: $viewModel.cityForecast, selectedCityName: $viewModel.selectedCity)
                             HStack {
@@ -42,7 +41,7 @@ struct WeatherForecastView: View {
                                     HStack(spacing: MagicSpacer.x2){
                                         ForEach(0 ..< 10) { i in
                                             let hour = Calendar.current.component(.hour, from: Date()) + i
-                                            if hour < 25 {
+                                            if hour <= 24 {
                                                 HourlyForecastCellView(hour: String(hour))
                                             }
                                         }
@@ -51,8 +50,6 @@ struct WeatherForecastView: View {
                             }
                             .frame(height: hourlyForecastSubviewHeight)
                         }
-                        .padding(.horizontal, MagicSpacer.x4)
-                        
                     }
                     .frame(height: headerHeight)
                     DailyForecastView(forecasts: viewModel.dailyForecasts, isScrolled: $isScrolled)
