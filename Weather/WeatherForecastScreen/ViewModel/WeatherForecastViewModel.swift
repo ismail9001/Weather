@@ -23,7 +23,7 @@ class WeatherForecastViewModel: ObservableObject {
         self.networkService = networkService
         self.cityForecast = CityForecast.getEmptyForecast()
         self.dailyForecasts = Array()
-        self.selectedCity = "Kazan"
+        self.selectedCity = "Moscow"
         self.isLoading = false
         self.isNotConnected = false
         self.networkReachability = NetworkReachability()

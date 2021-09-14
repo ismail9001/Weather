@@ -56,7 +56,7 @@ struct SearchView: View {
                                                 IconView(name: AppImage.mapPin, color: CustomColor.darkIconColor)
                                             }
                                         }
-                                        .padding(.horizontal, MagicSpacer.x3)
+                                        .padding(.horizontal, MagicSpacer.x4)
                                         .frame(width: geometry.size.width)
                 )
             }
@@ -100,10 +100,8 @@ struct SearchView: View {
                                             }
                                             SearchBar(text: $searchLocation, placeholder: $viewModel.placeholder)
                                         }
-                                        .padding(.horizontal, MagicSpacer.x3)
-                                        .padding(.trailing, MagicSpacer.x1)
+                                        .padding(.horizontal, MagicSpacer.x4)
                                         .frame(width: geometry.size.width)
-                                    
                 )
             }
         }
